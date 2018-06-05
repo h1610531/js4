@@ -13,23 +13,23 @@
         <!--ゲーム開始//-->
         if(document.g_switch.s.value=="start"){
           document.g_switch.s.value=20;
-	}else{
-	  <!--終了処理//-->
+	    }else{
+	      <!--終了処理//-->
           if(document.g_switch.s.value==0)
             window.alert("最大数クリック回数："+count+"\n取得ポイント："+point);
-	  <!--チャレンジ回数更新//-->
+	      <!--チャレンジ回数更新//-->
           else
             document.g_switch.s.value--;
         }
 
-	<!--フラグを初期化//-->  
+	    <!--フラグを初期化//-->  
         c_flag.fill(0);
-	<!--乱数を生成し、各スイッチの値を変更。//-->
+	    <!--乱数を生成し、各スイッチの値を変更。//-->
         for(i=1;i<=5;i++){
-	  r=Math.floor(Math.random()*100)+1;
+	      r=Math.floor(Math.random()*100)+1;
           <!--最大値を更新//-->
           if(r>max)  max=r;
-	  document.g_switch.elements[i].value=r;
+	      document.g_switch.elements[i].value=r;
         }
       }
 
@@ -38,19 +38,19 @@
         <!--スイッチの値を取得（文字列となっているのでintに変換）//-->
         var v=parseInt(document.g_switch.elements[a].value);
 
-	<!--ゲームが開始している(maxの値が0でない)かつそのボタンが押されていないならポイントの更新処理を実行//-->
-	if(max!=0 && c_flag[a-1]==0){
-	  <!--押したスイッチの値が最大値ならポイントに値を加算し、クリック回数をインクリメント//-->
-	  if(v==max){
-	    point+=v;
-	    count++;
-	  <!--最大値でないならポイントに値を減算する//-->
-	  }else{
-            point-=v;;
-	  }
-	}
-	<!--ボタンがクリックされたのでフラグをつける//-->  
-	c_flag[a-1]=1;
+	    <!--ゲームが開始している(maxの値が0でない)かつそのボタンが押されていないならポイントの更新処理を実行//-->
+	    if(max!=0 && c_flag[a-1]==0){
+	      <!--押したスイッチの値が最大値ならポイントに値を加算し、クリック回数をインクリメント//-->
+	      if(v==max){
+	        point+=v;
+	        count++;
+	      <!--最大値でないならポイントに値を減算する//-->
+	      }else{
+            point-=v;
+	      }
+	    }
+	    <!--ボタンがクリックされたのでフラグをつける//-->  
+	    c_flag[a-1]=1;
       }
     </script>
   </head>
