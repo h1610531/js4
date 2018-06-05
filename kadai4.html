@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      var count=0,point=0; <!--count:最大クリック回数,point:取得ポイント//-->
+      var max=0; <!--スイッチの最大値//-->
+      var c_flag= new Array(5); <!--i番目のスイッチが押されていたらc_flag[i-1]の値が1になるフラグ//-->
+      <!--チャレンジ回数とスイッチの情報（値、最大値、フラグ）を更新する関数。//-->
+      function game(){
+        var r;
+        <!--スイッチの最大値を初期化(スイッチの値の最小値が1であり、0をゲーム開始前として区別する)//-->
+        max=1;
+
+        <!--ゲーム開始//-->
+        if(document.g_switch.s.value=="start"){
+          document.g_switch.s.value=20;
+	}else{
+	  <!--終了処理//-->
+          if(document.g_switch.s.value==0)
+            window.alert("最大数クリック回数："+count+"\n取得ポイント："+point);
+	  <!--チャレンジ回数更新//-->
+          else
+            document.g_switch.s.value--;
+        }
+
+	<!--フラグを初期化//-->  
+        c_flag.fill(0);
+	<!--乱数を生成し、各スイッチの値を変更。//-->
+        for(i=1;i<=5;i++){
+	  r=Math.floor(Math.random()*100)+1;
+          <!--最大値を更新//-->
+          if(r>max)  max=r;
+	  document.g_switch.elements[i].value=r;
+        }
+      }
+
+      <!--スイッチが押されたときの処理を行う関数//-->
+      function mc(a){
+        <!--スイッチの値を取得（文字列となっているのでintに変換）//-->
+        var v=parseInt(document.g_switch.elements[a].value);
+
+	<!--ゲームが開始している(maxの値が0でない)かつそのボタンが押されていないならポイントの更新処理を実行//-->
+	if(max!=0 && c_flag[a-1]==0){
+	  <!--押したスイッチの値が最大値ならポイントに値を加算し、クリック回数をインクリメント//-->
+	  if(v==max){
+	    point+=v;
+	    count++;
+	  <!--最大値でないならポイントに値を減算する//-->
+	  }else{
+            point-=v;;
+	  }
+	}
+	<!--ボタンがクリックされたのでフラグをつける//-->  
+	c_flag[a-1]=1;
+      }
+    </script>
+  </head>
+  <body>
+    <!--ボタン生成//-->
+    <form name="g_switch">
+      <input type="button" name="s" value="start" style=" height: 50px; font-size:20px;" onclick="setInterval('game()',1000)"><br>
+      <input type="button" name="gs_1" value="SW1" style=" height: 50px; font-size:20px;" onclick="mc(1)">
+      <input type="button" name="gs_2" value="SW2" style=" height: 50px; font-size:20px;" onclick="mc(2)">
+      <input type="button" name="gs_3" value="SW3" style=" height: 50px; font-size:20px;" onclick="mc(3)">
+      <input type="button" name="gs_4" value="SW4" style=" height: 50px; font-size:20px;" onclick="mc(4)">
+      <input type="button" name="gs_5" value="SW5" style=" height: 50px; font-size:20px;" onclick="mc(5)">
+    </form>
+  </body>
+</html>
